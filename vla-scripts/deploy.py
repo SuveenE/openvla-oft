@@ -89,6 +89,8 @@ class OpenVLAServer:
                 self.cfg, self.vla, self.processor, observation, instruction, action_head=self.action_head, proprio_projector=self.proprio_projector, use_film=self.cfg.use_film,
             )
 
+            logging.info(f"[act] Predicted action: {action}")
+
             if double_encode:
                 return JSONResponse(json_numpy.dumps(action))
             else:

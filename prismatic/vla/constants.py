@@ -72,10 +72,10 @@ elif ROBOT_PLATFORM == "BRIDGE":
     constants = BRIDGE_CONSTANTS
 
 # Assign constants to global variables
-NUM_ACTIONS_CHUNK = constants["NUM_ACTIONS_CHUNK"]
-ACTION_DIM = constants["ACTION_DIM"]
-PROPRIO_DIM = constants["PROPRIO_DIM"]
-ACTION_PROPRIO_NORMALIZATION_TYPE = constants["ACTION_PROPRIO_NORMALIZATION_TYPE"]
+NUM_ACTIONS_CHUNK = 50
+ACTION_DIM = 14
+PROPRIO_DIM = 14
+ACTION_PROPRIO_NORMALIZATION_TYPE = NormalizationType.BOUNDS
 
 # Print which robot platform constants are being used (for debugging)
 print(f"Using {ROBOT_PLATFORM} constants:")
