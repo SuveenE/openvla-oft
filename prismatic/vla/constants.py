@@ -72,7 +72,7 @@ elif ROBOT_PLATFORM == "BRIDGE":
     constants = BRIDGE_CONSTANTS
 
 # Assign constants to global variables
-NUM_ACTIONS_CHUNK = 25
+NUM_ACTIONS_CHUNK = 8
 ACTION_DIM = 14
 PROPRIO_DIM = 14
 ACTION_PROPRIO_NORMALIZATION_TYPE = NormalizationType.BOUNDS
