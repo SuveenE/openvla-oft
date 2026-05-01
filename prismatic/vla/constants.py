@@ -4,6 +4,7 @@ Important constants for VLA training and evaluation.
 Attempts to automatically identify the correct constants to set based on the Python command used to launch
 training or evaluation. If it is unclear, defaults to using the LIBERO simulation benchmark constants.
 """
+import os
 import sys
 from enum import Enum
 
@@ -71,11 +72,19 @@ elif ROBOT_PLATFORM == "ALOHA":
 elif ROBOT_PLATFORM == "BRIDGE":
     constants = BRIDGE_CONSTANTS
 
-# Assign constants to global variables
-NUM_ACTIONS_CHUNK = 25
-ACTION_DIM = 14
-PROPRIO_DIM = 14
-ACTION_PROPRIO_NORMALIZATION_TYPE = NormalizationType.BOUNDS
+# Assign constants to global variables.
+#
+# Allow per-process overrides via env vars so multiple deploy.py instances
+# can run concurrently with different action/proprio dims without trampling
+# this shared module file. Defaults preserve the previous hard-coded values
+# (25 / 14 / 14 / BOUNDS) so anything launching without the env vars set
+# behaves exactly like before.
+NUM_ACTIONS_CHUNK = int(os.environ.get("OPENVLA_NUM_ACTIONS_CHUNK", 25))
+ACTION_DIM = int(os.environ.get("OPENVLA_ACTION_DIM", 14))
+PROPRIO_DIM = int(os.environ.get("OPENVLA_PROPRIO_DIM", 14))
+ACTION_PROPRIO_NORMALIZATION_TYPE = NormalizationType(
+    os.environ.get("OPENVLA_NORMALIZATION_TYPE", "bounds").lower()
+)
 
 # Print which robot platform constants are being used (for debugging)
 print(f"Using {ROBOT_PLATFORM} constants:")
